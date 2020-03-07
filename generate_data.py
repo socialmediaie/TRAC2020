@@ -1,0 +1,97 @@
+import os
+import pandas as pd
+import numpy as np
+import pprint
+import random
+
+#print(os.getcwd())
+
+os.environ['TRAC PATH'] = os.getcwd()
+
+BASE_PATH = os.environ.get('TRAC PATH')
+DATA_PATHS_TRAIN = {
+    "EN": f"{BASE_PATH}/data/raw/train/trac2_eng_train.csv",
+    "IBE": f"{BASE_PATH}/data/raw/train/trac2_iben_train.csv",
+    "HI": f"{BASE_PATH}/data/raw/train/trac2_hin_train.csv"
+}
+DATA_PATHS_DEV = {
+    "EN": f"{BASE_PATH}/data/raw/dev/trac2_eng_dev.csv",
+    "IBE": f"{BASE_PATH}/data/raw/dev/trac2_iben_dev.csv",
+    "HI": f"{BASE_PATH}/data/raw/dev/trac2_hin_dev.csv"
+}
+DATA_PATHS_TEST = {
+    "EN": f"{BASE_PATH}/data/raw/test/trac2_eng_test.csv",
+    "IBE": f"{BASE_PATH}/data/raw/test/trac2_iben_test.csv",
+    "HI": f"{BASE_PATH}/data/raw/test/trac2_hin_test.csv"
+}
+
+#print(DATA_PATHS_DEV)
+
+DATA_COLUMNS = ["row_id", "text", "task_1", "task_2"]
+
+NUM_LANGUAGES = len(DATA_PATHS_TRAIN)
+print(NUM_LANGUAGES)
+TASK_LABEL_IDS = {
+    "Sub-task A": ["OAG", "NAG", "CAG"],
+    "Sub-task B": ["GEN", "NGEN"]
+}
+df = pd.read_csv(DATA_PATHS_TRAIN["EN"], sep=",").fillna("NULL")
+
+
+
+print(set(df['Sub-task A']))
+#print(df)
+
+def gen_data(args):
+    for data_type, DATA_PATHS in [("train", DATA_PATHS_TRAIN), ("dev", DATA_PATHS_DEV)]:
+        print(data_type)
+        for lang, path in DATA_PATHS.items():
+            df = pd.read_csv(path, sep=",").fillna("NULL")
+            #if data_type == "test":
+            #    df = df.assign(**{
+            #        k: v[0]
+            #        for k,v in TASK_LABEL_IDS.items()
+            #    })
+            #elif lang == "DE":
+            #    df.loc[df.task_1 == "NOT", "task_3"] = "NONE"
+            #    df.loc[df.task_1 != "NOT", "task_3"] = "TIN"
+
+            # This is a fix for fixing errors in teasor data. Should not apply to test
+            #if data_type != "test":
+            #    df.loc[df["task_1"] == "NOT", ["task_2", "task_3"]] = "NONE"
+
+            #if data_type != "test":
+                #for task in ["task_1", "task_2", "task_3"]:
+                #    df[task] = df[task].str.upper().replace("NULL", "NONE")
+            #df["task_4"] = df["task_1"].str.cat(df[["task_2", "task_3"]].astype(str), sep="-")
+            task_cols = df.filter(regex=r'Sub-task *', axis=1).columns
+            for task in task_cols:
+                #if task == "task_3" and lang == "DE":
+                #    continue
+                y = df[task]
+                idx = (y != "NONE")
+                df_t = df[idx]
+                df_bert = pd.DataFrame({
+                  'id': list(range(df_t.shape[0])),
+                  'label': y[idx],
+                  'alpha': ['a']*df_t.shape[0],
+                  'text': df_t["Text"].replace(r'\s+', ' ', regex=True)
+                })
+                os.makedirs(os.path.join("./", lang, task), exist_ok=True)
+                bert_format_path = os.path.join("./", lang, task, f"{data_type}.tsv")
+                print(bert_format_path)
+                df_bert.to_csv(bert_format_path, sep=',', index=False, header=False)
+
+def get_arguments():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--seed', type=int, default=42,
+                        help="random seed for initialization")
+    args = parser.parse_args()
+    return args
+
+if __name__ == "__main__":
+    args = get_arguments()
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    gen_data(args)
