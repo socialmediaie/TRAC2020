@@ -6,28 +6,28 @@ import random
 
 #print(os.getcwd())
 
-os.environ['TRAC PATH'] = os.getcwd()
+os.environ['TRAC_PATH'] = os.getcwd()
 
-BASE_PATH = os.environ.get('TRAC PATH')
+BASE_PATH = os.environ.get('TRAC_PATH')
 DATA_PATHS_TRAIN = {
-    "EN": f"{BASE_PATH}/data/raw/train/trac2_eng_train.csv",
-    "IBE": f"{BASE_PATH}/data/raw/train/trac2_iben_train.csv",
-    "HI": f"{BASE_PATH}/data/raw/train/trac2_hin_train.csv"
+    "ENG": f"{BASE_PATH}/data/raw/eng/trac2_eng_train.csv",
+    "IBEN": f"{BASE_PATH}/data/raw/iben/trac2_iben_train.csv",
+    "HIN": f"{BASE_PATH}/data/raw/hin/trac2_hin_train.csv"
 }
 DATA_PATHS_DEV = {
-    "EN": f"{BASE_PATH}/data/raw/dev/trac2_eng_dev.csv",
-    "IBE": f"{BASE_PATH}/data/raw/dev/trac2_iben_dev.csv",
-    "HI": f"{BASE_PATH}/data/raw/dev/trac2_hin_dev.csv"
+    "ENG": f"{BASE_PATH}/data/raw/eng/trac2_eng_dev.csv",
+    "IBEN": f"{BASE_PATH}/data/raw/iben/trac2_iben_dev.csv",
+    "HIN": f"{BASE_PATH}/data/raw/hin/trac2_hin_dev.csv"
 }
 DATA_PATHS_TEST = {
-    "EN": f"{BASE_PATH}/data/raw/test/trac2_eng_test.csv",
-    "IBE": f"{BASE_PATH}/data/raw/test/trac2_iben_test.csv",
-    "HI": f"{BASE_PATH}/data/raw/test/trac2_hin_test.csv"
+    "ENG": f"{BASE_PATH}/data/raw/eng/trac2_eng_test.csv",
+    "IBEN": f"{BASE_PATH}/data/raw/iben/trac2_iben_test.csv",
+    "HIN": f"{BASE_PATH}/data/raw/hin/trac2_hin_test.csv"
 }
 
 #print(DATA_PATHS_DEV)
 
-DATA_COLUMNS = ["row_id", "text", "task_1", "task_2"]
+DATA_COLUMNS = ["row_id", "text", "Sub-task A", "Sub-task B"]
 
 NUM_LANGUAGES = len(DATA_PATHS_TRAIN)
 print(NUM_LANGUAGES)
@@ -35,23 +35,17 @@ TASK_LABEL_IDS = {
     "Sub-task A": ["OAG", "NAG", "CAG"],
     "Sub-task B": ["GEN", "NGEN"]
 }
-df = pd.read_csv(DATA_PATHS_TRAIN["EN"], sep=",").fillna("NULL")
-
-
-
-print(set(df['Sub-task A']))
-#print(df)
 
 def gen_data(args):
-    for data_type, DATA_PATHS in [("train", DATA_PATHS_TRAIN), ("dev", DATA_PATHS_DEV)]:
+    for data_type, DATA_PATHS in [("train", DATA_PATHS_TRAIN), ("dev", DATA_PATHS_DEV), ("test", DATA_PATHS_TEST)]:
         print(data_type)
         for lang, path in DATA_PATHS.items():
-            df = pd.read_csv(path, sep=",").fillna("NULL")
-            #if data_type == "test":
-            #    df = df.assign(**{
-            #        k: v[0]
-            #        for k,v in TASK_LABEL_IDS.items()
-            #    })
+            df = pd.read_csv(path, sep=",")
+            if data_type == "test":
+                df = df.assign(**{
+                    k: v[0]
+                    for k,v in TASK_LABEL_IDS.items()
+                })
             #elif lang == "DE":
             #    df.loc[df.task_1 == "NOT", "task_3"] = "NONE"
             #    df.loc[df.task_1 != "NOT", "task_3"] = "TIN"
@@ -80,7 +74,7 @@ def gen_data(args):
                 os.makedirs(os.path.join("./", lang, task), exist_ok=True)
                 bert_format_path = os.path.join("./", lang, task, f"{data_type}.tsv")
                 print(bert_format_path)
-                df_bert.to_csv(bert_format_path, sep=',', index=False, header=False)
+                df_bert.to_csv(bert_format_path, sep='\t', index=False, header=False)
 
 def get_arguments():
     import argparse
