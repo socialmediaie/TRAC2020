@@ -21,28 +21,6 @@ import glob
 
 logger = logging.getLogger(__name__)
 
-
-BASE_PATH = os.environ.get('TRAC PATH')
-DATA_PATHS_TRAIN = {
-    "EN": f"{BASE_PATH}/data/raw/train/trac2_eng_train.csv",
-    "IBE": f"{BASE_PATH}/data/raw/train/trac2_iben_train.csv",
-    "HI": f"{BASE_PATH}/data/raw/train/trac2_hin_train.csv"
-}
-DATA_PATHS_DEV = {
-    "EN": f"{BASE_PATH}/data/raw/dev/trac2_eng_dev.csv",
-    "IBE": f"{BASE_PATH}/data/raw/dev/trac2_iben_dev.csv",
-    "HI": f"{BASE_PATH}/data/raw/dev/trac2_hin_dev.csv"
-}
-DATA_PATHS_TEST = {
-    "EN": f"{BASE_PATH}/data/raw/test/trac2_eng_test.csv",
-    "IBE": f"{BASE_PATH}/data/raw/test/trac2_iben_test.csv",
-    "HI": f"{BASE_PATH}/data/raw/test/trac2_hin_test.csv"
-}
-print(DATA_PATHS_TRAIN)
-DATA_COLUMNS = ["row_id", "text", "task_1", "task_2"]
-NUM_LANGUAGES = len(DATA_PATHS_TRAIN)
-
-
 TASK_LABEL_IDS = {
     "Sub-task A": ["OAG", "NAG", "CAG"],
     "Sub-task B": ["GEN", "NGEN"]
