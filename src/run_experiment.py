@@ -70,7 +70,7 @@ class DataProcessor(object):
     @classmethod
     def _read_tsv(cls, input_file, quotechar=None):
         """Reads a tab separated value file."""
-        df = pd.read_csv(input_file, sep=",", header=None)
+        df = pd.read_csv(input_file, sep="\t", header=None)
         return df.values.tolist()
 
 
