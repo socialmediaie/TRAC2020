@@ -6,7 +6,7 @@ import random
 
 #print(os.getcwd())
 
-os.environ['TRAC_PATH'] = os.getcwd()
+#os.environ['TRAC_PATH'] = os.getcwd()
 
 BASE_PATH = os.environ.get('TRAC_PATH')
 DATA_PATHS_TRAIN = {
