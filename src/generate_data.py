@@ -6,7 +6,8 @@ import random
 
 #print(os.getcwd())
 
-#os.environ['TRAC_PATH'] = os.getcwd()
+if not os.environ['TRAC_PATH']:
+    os.environ['TRAC_PATH'] = os.getcwd()
 
 BASE_PATH = os.environ.get('TRAC_PATH')
 DATA_PATHS_TRAIN = {
@@ -33,7 +34,8 @@ NUM_LANGUAGES = len(DATA_PATHS_TRAIN)
 print(NUM_LANGUAGES)
 TASK_LABEL_IDS = {
     "Sub-task A": ["OAG", "NAG", "CAG"],
-    "Sub-task B": ["GEN", "NGEN"]
+    "Sub-task B": ["GEN", "NGEN"],
+    #"Sub-task C": ["OAG-GEN", "OAG-NGEN", "NAG-GEN", "NAG-NGEN", "CAG-GEN", "CAG-NGEN"]
 }
 
 def gen_data(args):
@@ -46,6 +48,7 @@ def gen_data(args):
                     k: v[0]
                     for k,v in TASK_LABEL_IDS.items()
                 })
+            df["Sub-task C"] = df["Sub-task A"].str.cat(df["Sub-task B"], "-")
             #elif lang == "DE":
             #    df.loc[df.task_1 == "NOT", "task_3"] = "NONE"
             #    df.loc[df.task_1 != "NOT", "task_3"] = "TIN"
@@ -71,6 +74,11 @@ def gen_data(args):
                   'alpha': ['a']*df_t.shape[0],
                   'text': df_t["Text"].replace(r'\s+', ' ', regex=True)
                 })
+                if args.normalize:
+                    df_bert["text"] = df_bert["text"].replace(r'\[(#\w+)\]\(.*?\)', r'\1', regex=True)
+                    df_bert["text"] = df_bert["text"].replace(r'\[.*?\]\(.*?\)', '__TIMEURL__', regex=True)
+                    df_bert["text"] = df_bert["text"].replace(r'@[^\s]+', '@USER', regex=True)
+                    df_bert["text"] = df_bert["text"].replace(r'http[s]?://[^\s]+', '__URL__', regex=True)
                 os.makedirs(os.path.join("./", lang, task), exist_ok=True)
                 bert_format_path = os.path.join("./", lang, task, f"{data_type}.tsv")
                 print(bert_format_path)
@@ -84,6 +92,8 @@ def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--seed', type=int, default=42,
                         help="random seed for initialization")
+    parser.add_argument('--normalize', action="store_true",
+                        help="Normalize text to replace mentions and urls")
     args = parser.parse_args()
     return args
 
