@@ -75,6 +75,9 @@ def gen_data(args):
                 bert_format_path = os.path.join("./", lang, task, f"{data_type}.tsv")
                 print(bert_format_path)
                 df_bert.to_csv(bert_format_path, sep='\t', index=False, header=False)
+                bert_format_path = os.path.join("./", lang, task, f"{data_type}.json")
+                print(bert_format_path)
+                df_bert.to_json(bert_format_path, orient="records", lines=True)
 
 def get_arguments():
     import argparse
