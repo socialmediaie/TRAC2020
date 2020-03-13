@@ -821,7 +821,7 @@ def train_model(args):
         args.model_name_or_path,
         from_tf=bool(".ckpt" in args.model_name_or_path),
         config=config,
-        num_labels=len(task_labels)
+        #num_labels=len(task_labels)
     )
     model.to('cuda:0')
 
