@@ -23,7 +23,8 @@ logger = logging.getLogger(__name__)
 
 TASK_LABEL_IDS = {
     "Sub-task A": ["OAG", "NAG", "CAG"],
-    "Sub-task B": ["GEN", "NGEN"]
+    "Sub-task B": ["GEN", "NGEN"],
+    "Sub-task C": ["OAG-GEN", "OAG-NGEN", "NAG-GEN", "NAG-NGEN", "CAG-GEN", "CAG-NGEN"]
 }
 
 class InputExample(object):
