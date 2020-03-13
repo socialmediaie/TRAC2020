@@ -90,13 +90,13 @@ def gen_data(args):
                 df_bert.to_json(bert_format_path, orient="records", lines=True)
                 if args.all_langs:
                     all_task_cols = task_cols
-                    all_lang_dfs[data_type] = all_lang_dfs.get(data_type, [])
-                    all_lang_dfs[data_type].append(df_bert.assign(id=df_bert["id"].apply(lambda x: f"{lang}-{x}")))
+                    all_lang_dfs[data_type] = all_lang_dfs.get(data_type, {k: [] for k in task_cols})
+                    all_lang_dfs[data_type][task].append(df_bert.assign(id=df_bert["id"].apply(lambda x: f"{lang}-{x}")))
     if args.all_langs:
         lang = "ALL"
         for data_type, DATA_PATHS in [("train", DATA_PATHS_TRAIN), ("dev", DATA_PATHS_DEV), ("test", DATA_PATHS_TEST)]:
-            df_bert = pd.concat(all_lang_dfs[data_type])
             for task in all_task_cols:
+                df_bert = pd.concat(all_lang_dfs[data_type][task])
                 os.makedirs(os.path.join("./", lang, task), exist_ok=True)
                 bert_format_path = os.path.join("./", lang, task, f"{data_type}.tsv")
                 print(bert_format_path)
