@@ -6,7 +6,7 @@ import random
 
 #print(os.getcwd())
 
-if not os.environ['TRAC_PATH']:
+if 'TRAC_PATH' not in os.environ:
     os.environ['TRAC_PATH'] = os.getcwd()
 
 BASE_PATH = os.environ.get('TRAC_PATH')
@@ -39,6 +39,8 @@ TASK_LABEL_IDS = {
 }
 
 def gen_data(args):
+    all_lang_dfs = {}
+    all_task_cols = []
     for data_type, DATA_PATHS in [("train", DATA_PATHS_TRAIN), ("dev", DATA_PATHS_DEV), ("test", DATA_PATHS_TEST)]:
         print(data_type)
         for lang, path in DATA_PATHS.items():
@@ -86,6 +88,23 @@ def gen_data(args):
                 bert_format_path = os.path.join("./", lang, task, f"{data_type}.json")
                 print(bert_format_path)
                 df_bert.to_json(bert_format_path, orient="records", lines=True)
+                if args.all_langs:
+                    all_task_cols = task_cols
+                    all_lang_dfs[data_type] = all_lang_dfs.get(data_type, [])
+                    all_lang_dfs[data_type].append(df_bert.assign(id=df_bert["id"].apply(lambda x: f"{lang}-{x}")))
+    if args.all_langs:
+        lang = "ALL"
+        for data_type, DATA_PATHS in [("train", DATA_PATHS_TRAIN), ("dev", DATA_PATHS_DEV), ("test", DATA_PATHS_TEST)]:
+            df_bert = pd.concat(all_lang_dfs[data_type])
+            for task in all_task_cols:
+                os.makedirs(os.path.join("./", lang, task), exist_ok=True)
+                bert_format_path = os.path.join("./", lang, task, f"{data_type}.tsv")
+                print(bert_format_path)
+                df_bert.to_csv(bert_format_path, sep='\t', index=False, header=False)
+                bert_format_path = os.path.join("./", lang, task, f"{data_type}.json")
+                print(bert_format_path)
+                df_bert.to_json(bert_format_path, orient="records", lines=True)
+    
 
 def get_arguments():
     import argparse
@@ -94,6 +113,8 @@ def get_arguments():
                         help="random seed for initialization")
     parser.add_argument('--normalize', action="store_true",
                         help="Normalize text to replace mentions and urls")
+    parser.add_argument('--all_langs', action="store_true",
+                        help="All language data")
     args = parser.parse_args()
     return args
 
