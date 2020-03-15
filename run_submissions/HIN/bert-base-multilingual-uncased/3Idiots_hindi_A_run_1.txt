@@ -1,0 +1,10 @@
+This is submission 1 for language hindi for Sub-task A.
+The submission was generated using the bert-base-multilingual-uncased transformer model. 
+The model only used the text as a feature for prediction. 
+
+Only data from hindi language was used for training.
+
+This model was trained to predict labels for subtask A.
+
+The full code for the submission will be made available at: https://github.com/SocialMediaIE/TRAC2020
+

@@ -1,0 +1,18 @@
+This is submission 3 for language english for Sub-task A.
+The submission was generated using the bert-base-uncased transformer model. 
+The model only used the text as a feature for prediction. 
+
+Only data from english language was used for training.
+
+For this prediction we combined labels for subtasks A and B. 
+Then the model was trained to predict the combined labels. 
+The combined predicted labels were then splitted to identify the subtask specific labels. 
+The combined label prediction task is referred to as subtask C by us. 
+This model results in predicted probabilities for each combined label. 
+
+For this model the marginal probabilities of labels for subtask A are computed.
+Then the label with the highest marginal probability is used to identify the predicted label for this subtask.
+
+
+The full code for the submission will be made available at: https://github.com/SocialMediaIE/TRAC2020
+
