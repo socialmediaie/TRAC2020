@@ -1,0 +1,13 @@
+This is submission 2 for language english for Sub-task B.
+The submission was generated using the xlm-roberta-base transformer model. 
+The model only used the text as a feature for prediction. 
+
+This model was trained on texts from all languages. 
+For this submission a multilingual model was used. 
+The model was then used to predict labels for each language.
+
+
+This model was trained to predict labels for subtask B.
+
+The full code for the submission will be made available at: https://github.com/SocialMediaIE/TRAC2020
+

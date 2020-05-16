@@ -1,0 +1,22 @@
+This is submission 2 for language hindi for Sub-task A.
+The submission was generated using the bert-base-multilingual-uncased transformer model. 
+The model only used the text as a feature for prediction. 
+
+This model was trained on texts from all languages. 
+For this submission a multilingual model was used. 
+The model was then used to predict labels for each language.
+
+
+For this prediction we combined labels for subtasks A and B. 
+Then the model was trained to predict the combined labels. 
+The combined predicted labels were then splitted to identify the subtask specific labels. 
+The combined label prediction task is referred to as subtask C by us. 
+This model results in predicted probabilities for each combined label. 
+
+
+The label with the highest probability is selected as the predicted label. 
+The subtask A component of this predicted label is used as a prediction for this subtask.
+
+
+The full code for the submission will be made available at: https://github.com/SocialMediaIE/TRAC2020
+
