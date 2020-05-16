@@ -12,6 +12,7 @@ from tensorboardX import SummaryWriter
 from tqdm import tqdm, trange
 from transformers import *
 from scipy.special import softmax
+import tensorflow as tf
 
 import random
 import os
@@ -284,6 +285,7 @@ MODELS = [(BertModel,       BertTokenizer,      'bert-base-cased'),
           (XLNetModel,      XLNetTokenizer,     'xlnet-base-cased'),
           (XLMModel,        XLMTokenizer,       'xlm-mlm-enfr-1024'),
           (RobertaModel,    RobertaTokenizer,   'roberta-base')]
+
 def evaluate(eval_dataset, model, args, task_labels=None):
     eval_sampler = SequentialSampler(eval_dataset)
     eval_dataloader = DataLoader(eval_dataset, sampler=eval_sampler, batch_size=args.eval_batch_size)
