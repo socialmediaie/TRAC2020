@@ -23,4 +23,11 @@ booktitle = {Proceedings of the Second Workshop on Trolling, Aggression and Cybe
 title = {{Multilingual Joint Fine-tuning of Transformer models for identifying Trolling, Aggression and Cyberbullying at TRAC 2020}},
 year = {2020}
 }
+
+@data{illinoisdatabankIDB-Mishra2020TRAC,
+author = {Mishra, Sudhanshu and Prasad, Shivangi and Mishra, Shubhanshu},
+publisher = {University of Illinois at Urbana-Champaign},
+title = {{Trained models for Multilingual Joint Fine-tuning of Transformer models for identifying Trolling, Aggression and Cyberbullying at TRAC 2020}},
+year = {2020}
+}
 ```
