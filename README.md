@@ -13,7 +13,7 @@ NOTE: These models are retrained for uploading here after our submission so the 
 If you plan to use the dataset please cite the following resources:
 
 * Mishra, Sudhanshu, Shivangi Prasad, and Shubhanshu Mishra. 2020. "Multilingual Joint Fine-Tuning of Transformer Models for Identifying Trolling, Aggression and Cyberbullying at TRAC 2020." In Proceedings of the Second Workshop on Trolling, Aggression and Cyberbullying (TRAC-2020).
-* Mishra, Shubhanshu; Prasad, Shivangi; Mishra, Shubhanshu (2020) Trained models for Multilingual Joint Fine-tuning of Transformer models for identifying Trolling, Aggression and Cyberbullying at TRAC 2020. University of Illinois at Urbana-Champaign.
+* Mishra, Shubhanshu, Shivangi Prasad, and Shubhanshu Mishra. 2020. “Trained Models for Multilingual Joint Fine-Tuning of Transformer Models for Identifying Trolling, Aggression and Cyberbullying at TRAC 2020.” University of Illinois at Urbana-Champaign. https://doi.org/10.13012/B2IDB-8882752_V1.
 
 
 ```
@@ -24,10 +24,12 @@ title = {{Multilingual Joint Fine-tuning of Transformer models for identifying T
 year = {2020}
 }
 
-@data{illinoisdatabankIDB-Mishra2020TRAC,
-author = {Mishra, Sudhanshu and Prasad, Shivangi and Mishra, Shubhanshu},
+@data{illinoisdatabankIDB-8882752,
+author = {Mishra, Shubhanshu and Prasad, Shivangi and Mishra, Shubhanshu},
+doi = {10.13012/B2IDB-8882752_V1},
 publisher = {University of Illinois at Urbana-Champaign},
 title = {{Trained models for Multilingual Joint Fine-tuning of Transformer models for identifying Trolling, Aggression and Cyberbullying at TRAC 2020}},
+url = {https://doi.org/10.13012/B2IDB-8882752{\_}V1},
 year = {2020}
 }
 ```
