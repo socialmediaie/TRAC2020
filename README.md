@@ -1,7 +1,9 @@
 # Multilingual Joint Fine-tuning of Transformer models for identifying Trolling, Aggression and Cyberbullying at TRAC 2020
 
 Models and predictions for submission to TRAC - 2020 Second Workshop on Trolling, Aggression and Cyberbullying.
-Source code: https://github.com/socialmediaie/TRAC2020
+
+Our trained models as well as evaluation metrics during traing are available at: https://databank.illinois.edu/datasets/IDB-8882752#
+We also make a few of our models available in HuggingFace's models repository at https://huggingface.co/socialmediaie/, these models can be further fine-tuned on your dataset of choice.
 
 Our approach is described in our paper titled: 
 
@@ -72,6 +74,7 @@ else:
 
 # For doing inference set model in eval mode
 model.eval()
+# If you want to further fine-tune the model you can reset the model to model.train()
 
 task_labels = TASK_LABEL_IDS[task]
 
