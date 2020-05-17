@@ -65,7 +65,7 @@ if model_version == "databank":
     model = AutoModelForSequenceClassification.from_pretrained(model_path)
 else:
     lang, task, base_model = "ALL", "Sub-task C", "bert-base-multilingual-uncased"
-    base_model = f"socialmediaie/{lang}_{lang.split()[-1]}_{base_model}"
+    base_model = f"socialmediaie/TRAC2020_{lang}_{lang.split()[-1]}_{base_model}"
     tokenizer = AutoTokenizer.from_pretrained(base_model)
     model = AutoModelForSequenceClassification.from_pretrained(base_model)
 
