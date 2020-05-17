@@ -1,6 +1,7 @@
 # Multilingual Joint Fine-tuning of Transformer models for identifying Trolling, Aggression and Cyberbullying at TRAC 2020
 
-Models and predictions for submission to TRAC - 2020 Second Workshop on Trolling, Aggression and Cyberbullying
+Models and predictions for submission to TRAC - 2020 Second Workshop on Trolling, Aggression and Cyberbullying.
+Source code: https://github.com/socialmediaie/TRAC2020
 
 Our approach is described in our paper titled: 
 
