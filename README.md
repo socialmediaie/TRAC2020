@@ -1,8 +1,14 @@
 # Multilingual Joint Fine-tuning of Transformer models for identifying Trolling, Aggression and Cyberbullying at TRAC 2020
 
+<a href="https://huggingface.co/exbert/?model=socialmediaie/TRAC2020_ALL_C_bert-base-multilingual-uncased">
+	<img width="300px" src="https://hf-dinosaur.huggingface.co/exbert/button.png">
+</a>
+
+
 * [Video presentation and slides](#video-presentation-and-slides)
 * [Citation](#citation)
 * [Usage](#usage)
+* [Visualize models in exbert](#visualize-models-in-exbert)
 
 Models and predictions for submission to TRAC - 2020 Second Workshop on Trolling, Aggression and Cyberbullying.
 
@@ -79,7 +85,7 @@ if model_version == "databank":
     model = AutoModelForSequenceClassification.from_pretrained(model_path)
 else:
     lang, task, base_model = "ALL", "Sub-task C", "bert-base-multilingual-uncased"
-    base_model = f"socialmediaie/TRAC2020_{lang}_{lang.split()[-1]}_{base_model}"
+    base_model = f"socialmediaie/TRAC2020_{lang}_{task.split()[-1]}_{base_model}"
     tokenizer = AutoTokenizer.from_pretrained(base_model)
     model = AutoModelForSequenceClassification.from_pretrained(base_model)
 
@@ -118,3 +124,12 @@ print(dict(zip(task_labels, preds_probs[0])), preds_labels)
 """
 
 ```
+
+## Visualize models in exbert
+
+You can find the exbert link on each model's URL. 
+E.g. if you want to visualize [socialmediaie/TRAC2020_ALL_C_bert-base-multilingual-uncased](https://huggingface.co/socialmediaie/TRAC2020_ALL_C_bert-base-multilingual-uncased), you can use the following link.
+
+<a href="https://huggingface.co/exbert/?model=socialmediaie/TRAC2020_ALL_C_bert-base-multilingual-uncased">
+	<img width="300px" src="https://hf-dinosaur.huggingface.co/exbert/button.png">
+</a>
