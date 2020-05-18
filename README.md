@@ -1,5 +1,9 @@
 # Multilingual Joint Fine-tuning of Transformer models for identifying Trolling, Aggression and Cyberbullying at TRAC 2020
 
+* [Video presentation and slides](#video-presentation-and-slides)
+* [Citation](#citation)
+* [Usage](#usage)
+
 Models and predictions for submission to TRAC - 2020 Second Workshop on Trolling, Aggression and Cyberbullying.
 
 Our trained models as well as evaluation metrics during traing are available at: https://databank.illinois.edu/datasets/IDB-8882752#
@@ -12,6 +16,13 @@ Our approach is described in our paper titled:
 The source code for training this model and more details can be found on our code repository: https://github.com/socialmediaie/TRAC2020
 
 NOTE: These models are retrained for uploading here after our submission so the evaluation measures may be slightly different from the ones reported in the paper. 
+
+## Video presentation and slides
+[![Model overview](./TRAC2020_YT.jpg)](https://www.youtube.com/watch?v=Md0I5Ss-FZs)
+
+Slides [PDF](./TRAC2020_presentation.pdf) [PPTX](./TRAC2020_presentation.pptx)
+
+## Citation
 
 If you plan to use the dataset please cite the following resources:
 
