@@ -57,7 +57,10 @@ year = {2020}
 
 ## Usage
 
-The models can be used via the following code: 
+The models can be used via the code below. 
+
+A notebook with this code can be found at [ipynb](./notebooks/TRAC2020_savedmodel_inference_demo.ipynb) <a href="https://colab.research.google.com/github/napsternxg/TRAC2020/blob/master/notebooks/TRAC2020_savedmodel_inference_demo.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
 
 ```python
 from transformers import AutoModel, AutoTokenizer, AutoModelForSequenceClassification
